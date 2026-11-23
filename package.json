@@ -1,6 +1,6 @@
 {
   "name": "matchhome-prototype",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "private": true,
   "description": "Prototipe interaktif MatchHome — BTN Housingpreneur",
   "scripts": { "start": "node server.cjs", "test": "node --test finance.test.cjs" }

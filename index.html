@@ -7,10 +7,10 @@
   <meta name="description" content="Hitung anggaran pembelian rumah dari penghasilan bersih, biaya hidup, dana awal, dan skenario perubahan bunga.">
   <title>MatchHome — Cari rumah, rencanakan biayanya</title>
   <link rel="preload" href="assets/manrope-regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2.2.1">
   <script src="finance.js" defer></script>
   <script src="data.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="app.js?v=2.2.1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Lewati ke konten</a>
@@ -33,7 +33,7 @@
 </defs></svg>
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="#beranda" aria-label="MatchHome beranda"><span class="brand-mark"><svg><use href="#i-home"/></svg></span>MatchHome<span class="brand-period">.</span></a>
+    <a class="brand" href="#beranda" aria-label="MatchHome beranda"><span class="brand-mark"><svg><use href="#i-home"/></svg></span>MatchHome</a>
     <nav aria-label="Menu utama">
       <a href="#beranda" data-view="beranda">Beranda</a>
       <a href="#jelajah" data-view="jelajah">Cari hunian</a>
@@ -43,15 +43,13 @@
     <a class="guide-link" href="#panduan" data-view="panduan">Panduan pembeli <span aria-hidden="true">↗</span></a>
   </div>
 </header>
-<div class="demo-notice"><div class="container"><span class="demo-dot"></span><strong>Mode prototipe</strong><span>Data hunian dan foto adalah ilustrasi, bukan penawaran jual.</span><a href="#panduan">Tentang data</a></div></div>
 <main id="main-content" tabindex="-1">
   <section id="home-view" class="view">
     <div class="container">
       <div class="home-hero">
         <div class="home-copy">
-          <p class="eyebrow">RUMAH PERTAMA, LANGKAH BERIKUTNYA</p>
-          <h1>Cari rumah.<br><em>Rencanakan<br>biayanya.</em></h1>
-          <p class="home-description">Mulai dari lokasi yang kamu inginkan. Bandingkan hunian, lalu periksa cicilan dan dana yang perlu disiapkan.</p>
+          <h1>Cari rumah<br><em>Rencanakan<br>biayanya</em></h1>
+          <p class="home-description">Cari hunian di Surabaya, Sidoarjo, Gresik, dan Malang, lalu bandingkan cicilan serta biaya awalnya.</p>
           <form id="home-search" class="home-search">
             <label>Lokasi hunian<div class="home-location-input"><svg aria-hidden="true"><use href="#i-pin"/></svg><input id="home-query" type="search" placeholder="Kota, daerah, atau nama hunian" list="home-locations" autocomplete="off"></div></label>
             <datalist id="home-locations"><option value="Surabaya"><option value="Sidoarjo"><option value="Gresik"><option value="Malang"></datalist>
@@ -62,17 +60,16 @@
         </div>
         <figure class="home-image">
           <img src="assets/house-1.jpg" alt="Ilustrasi rumah dengan taman dan ruang keluarga terbuka, bukan unit dalam katalog" fetchpriority="high">
-          <figcaption><span>Ruang untuk rencana berikutnya.</span><small>Foto ilustrasi · bukan dokumentasi unit</small></figcaption>
         </figure>
       </div>
       <section class="home-listings" aria-labelledby="home-listings-title">
-        <div class="home-section-heading"><div><p class="eyebrow">JELAJAHI KATALOG CONTOH</p><h2 id="home-listings-title">Mulai dari pilihan yang lebih terjangkau.</h2><p>Tiga harga terendah dalam katalog. Tidak dinyatakan memenuhi syarat subsidi.</p></div><a href="#jelajah" class="text-link">Lihat semua hunian <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        <div class="home-section-heading"><h2 id="home-listings-title">Pilihan hunian</h2><a href="#jelajah" class="text-link">Lihat semua hunian <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
         <div id="home-property-grid" class="property-grid"></div>
         <p id="home-listing-note" class="listing-note"></p>
       </section>
       <section class="home-planning" aria-labelledby="home-planning-title">
-        <div><p class="eyebrow">SEBELUM MEMUTUSKAN</p><h2 id="home-planning-title">Sisakan ruang untuk<br>kebutuhan sehari-hari.</h2><p>Cek uang muka, biaya transaksi, dan sisa bulanan. Jika penghasilan berubah, gunakan catatan pemasukan dan biaya usaha.</p><a href="#simulasi" class="button primary">Mulai hitung anggaran <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
-        <ol class="home-process"><li><span>01</span><div><strong>Kenali anggaranmu</strong><p>Penghasilan bersih, kebutuhan rutin, dan tabungan.</p></div></li><li><span>02</span><div><strong>Bandingkan biaya rumah</strong><p>Bukan hanya harga jual, tetapi juga dana awal dan cicilan.</p></div></li><li><span>03</span><div><strong>Siapkan pertanyaan ke bank</strong><p><a href="#panduan">Baca panduan pembeli <span aria-hidden="true">↗</span></a></p></div></li></ol>
+        <div><h2 id="home-planning-title">Hitung biaya pembelian</h2><p>Masukkan penghasilan, pengeluaran, dan tabungan untuk melihat sisa uang setelah membayar cicilan.</p><a href="#simulasi" class="button primary">Hitung anggaran <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        <ol class="home-process"><li><span>01</span><div><strong>Isi penghasilan</strong><p>Catat pemasukan bersih, pengeluaran, dan tabungan.</p></div></li><li><span>02</span><div><strong>Hitung biaya rumah</strong><p>Periksa uang muka, biaya transaksi, dan cicilan.</p></div></li><li><span>03</span><div><strong>Siapkan dokumen</strong><p><a href="#panduan">Lihat panduan pembeli <span aria-hidden="true">↗</span></a></p></div></li></ol>
       </section>
     </div>
   </section>
@@ -86,11 +83,11 @@
         <button class="button primary" type="submit">Cari hunian <svg><use href="#i-arrow"/></svg></button>
       </form>
       <div class="catalog-controls"><div class="filter-chips" role="group" aria-label="Tipe hunian"><button type="button" data-type="all" class="chip active" aria-pressed="true">Semua</button><button type="button" data-type="Rumah" class="chip" aria-pressed="false">Rumah tapak</button><button type="button" data-type="Apartemen" class="chip" aria-pressed="false">Apartemen</button></div><label class="inline-select">Kondisi <select id="readiness"><option value="all">Semua kondisi</option><option>Siap huni</option><option>Dalam pembangunan</option></select></label><button type="button" id="reset-filters" class="reset-button">Reset filter</button></div>
-      <div id="budget-banner" class="budget-banner"><div><strong>Belum ada anggaran yang diterapkan.</strong><p>Hitung anggaran untuk membandingkan dana awal dan sisa bulanan tiap hunian.</p></div><a href="#simulasi" class="text-link">Hitung anggaran <span>↗</span></a></div>
+      <div id="budget-banner" class="budget-banner"><div><strong>Belum ada anggaran yang diterapkan</strong><p>Hitung anggaran untuk membandingkan dana awal dan sisa bulanan tiap hunian.</p></div><a href="#simulasi" class="text-link">Hitung anggaran <span>↗</span></a></div>
       <div class="results-heading"><p id="result-count" aria-live="polite"></p><label class="sort-label">Urutkan <select id="sort"><option value="recommended">Urutan katalog</option><option value="lowest">Harga terendah</option><option value="highest">Harga tertinggi</option><option value="largest">Bangunan terluas</option><option value="affordable">Kesesuaian anggaran</option></select></label></div>
       <div id="property-grid" class="property-grid"></div>
-      <div id="empty-state" class="empty-state" hidden><svg><use href="#i-search"/></svg><h3>Tidak ada hunian yang sesuai filter.</h3><p>Coba lokasi lain atau longgarkan batas harga dan kamar.</p><button id="empty-reset" class="button secondary" type="button">Hapus semua filter</button></div>
-      <p class="listing-footnote">Harga bukan penawaran jual. Estimasi kartu: DP 20%, bunga 7% tetap, tenor 20 tahun; belum termasuk biaya lain.</p>
+      <div id="empty-state" class="empty-state" hidden><svg><use href="#i-search"/></svg><h3>Belum ada hunian yang cocok</h3><p>Coba lokasi lain atau longgarkan batas harga dan kamar.</p><button id="empty-reset" class="button secondary" type="button">Hapus semua filter</button></div>
+      <p class="listing-footnote">Asumsi cicilan: DP 20%, bunga 7% per tahun, tenor 20 tahun.</p>
     </div>
   </section>
   <section id="calculator-view" class="view" hidden>
@@ -139,10 +136,9 @@
         </form>
         <aside class="result-column" aria-label="Hasil perhitungan">
           <div class="calculation-result" id="calculation-result">
-            <span class="eyebrow">RINCIAN ANGGARAN</span>
-            <div id="calculation-output" aria-live="polite"><div class="result-empty"><span class="result-empty-icon"><svg aria-hidden="true"><use href="#i-calc"/></svg></span><h2>Rencana rumahmu dimulai di sini.</h2><p>Setelah tiga langkah, kamu bisa melihat cicilan, kekurangan dana awal, dan sisa uang bulanan.</p><p>Tidak perlu membuat akun. Isian finansial hanya berlaku di halaman ini.</p></div></div>
+            <div id="calculation-output" aria-live="polite"><div class="result-empty"><span class="result-empty-icon"><svg aria-hidden="true"><use href="#i-calc"/></svg></span><h2>Rincian anggaran</h2><p>Lengkapi tiga langkah untuk melihat cicilan, dana awal, dan sisa uang bulanan.</p></div></div>
             <button class="button primary full-width" type="button" id="apply-budget" disabled hidden>Bandingkan dengan hunian contoh <svg><use href="#i-arrow"/></svg></button>
-            <p class="privacy-note">Bukan skor kredit, persetujuan KPR, atau penawaran BTN.</p>
+            <p class="privacy-note">Simulasi mengikuti isian dan asumsi bunga</p>
           </div>
           <details class="calculation-method"><summary>Cara menghitung & batas penggunaan</summary><p>Angsuran anuitas bulanan. Setelah masa bunga awal, angsuran dihitung ulang dari saldo pinjaman dan sisa tenor. Bunga setelahnya diasumsikan tetap sampai lunas, bukan proyeksi pasar.</p><p>Untuk penghasilan berubah, dasar hitungan adalah rata-rata bersih enam bulan. Bulan terendah diuji terpisah; riwayat ini bukan prediksi atau kebijakan underwriting bank.</p><p>Dana awal = DP + biaya transaksi yang diisi. Biaya yang belum diisi, seperti pindah atau angsuran pertama, belum terhitung. Biaya perjalanan diisi sendiri, bukan estimasi rute.</p><p>Tidak ada akses e-wallet, PKA, SLIK, escrow, pengajuan kredit, atau verifikasi dokumen. Subsidi dan pembiayaan syariah tidak dimodelkan sebagai produk tertentu.</p></details>
         </aside>
@@ -150,23 +146,23 @@
     </div>
   </section>
   <section id="plan-view" class="view" hidden>
-    <div class="container"><div class="page-heading"><p class="eyebrow">RENCANA SAYA</p><h1>Pilihan rumah dan langkah berikutnya.</h1><p>Favorit dan checklist tersimpan pada browser ini. Tidak memerlukan akun.</p></div>
+    <div class="container"><div class="page-heading"><h1>Rencana pembelian</h1><p>Simpan pilihan rumah dan tandai dokumen yang sudah disiapkan.</p></div>
       <div class="plan-tabs" role="group" aria-label="Bagian rencana"><button type="button" class="active" data-plan-tab="saved" aria-pressed="true">Hunian tersimpan <span id="plan-saved-count">0</span></button><button type="button" data-plan-tab="checklist" aria-pressed="false">Checklist pembelian</button></div>
-      <div id="saved-panel"><div id="saved-grid" class="property-grid"></div><div id="saved-empty" class="empty-state" hidden><svg><use href="#i-heart"/></svg><h2>Belum ada hunian tersimpan.</h2><p>Gunakan tombol hati pada katalog untuk mengumpulkan pilihanmu.</p><a href="#jelajah" class="button primary">Lihat katalog <svg><use href="#i-arrow"/></svg></a></div></div>
+      <div id="saved-panel"><div id="saved-grid" class="property-grid"></div><div id="saved-empty" class="empty-state" hidden><svg><use href="#i-heart"/></svg><h2>Belum ada hunian tersimpan</h2><p>Gunakan tombol hati pada katalog untuk menyimpan pilihan.</p><a href="#jelajah" class="button primary">Lihat katalog <svg><use href="#i-arrow"/></svg></a></div></div>
       <div id="checklist-panel" hidden><div class="checklist-heading"><div><h2>Persiapan pembelian rumah</h2><p>Checklist mandiri, bukan verifikasi dokumen atau penilaian kredit.</p></div><button id="reset-checklist" type="button" class="reset-button">Reset checklist</button></div><div class="progress-track"><div id="checklist-progress"></div></div><p id="checklist-count" class="muted" aria-live="polite"></p><div id="checklist-groups" class="checklist-groups"></div><div class="info-callout"><svg><use href="#i-info"/></svg><p>Jangan membayar booking fee sebelum memahami syarat pembatalan, mengunjungi lokasi, dan mengonfirmasi kewenangan penjual. Konsultasikan dokumen dengan pihak berwenang.</p></div></div>
     </div>
   </section>
   <section id="guide-view" class="view" hidden>
-    <div class="container"><div class="page-heading"><p class="eyebrow">PANDUAN & SUMBER</p><h1>Ketahui apa yang perlu diperiksa.</h1><p>Informasi pada aplikasi membantu persiapan, bukan menggantikan bank, PPAT, atau pemeriksaan lapangan.</p></div>
-      <div class="guide-grid"><article class="guide-card"><span class="guide-number">01 / ANGGARAN</span><h2>Hitung lebih dari DP dan cicilan.</h2><p>Siapkan rincian biaya transaksi, biaya rutin, dana darurat, dan skenario penghasilan berubah. Persyaratan dan keputusan kredit tetap mengikuti bank.</p><a class="text-link" href="https://www.btnproperti.co.id/" target="_blank" rel="noopener noreferrer">Kunjungi balé properti <span>↗</span></a></article><article class="guide-card"><span class="guide-number">02 / DOKUMEN</span><h2>Dokumen tersedia ≠ sudah sah.</h2><p>Pengecekan sertipikat, izin bangunan, dan kondisi fisik adalah pemeriksaan berbeda. Tanyakan pihak pemeriksa, tanggal, serta ruang lingkup hasilnya.</p><a class="text-link" href="https://perizinan.pu.go.id/portal/services/simbg" target="_blank" rel="noopener noreferrer">Tentang PBG & SLF <span>↗</span></a></article><article class="guide-card"><span class="guide-number">03 / PROGRAM SUBSIDI</span><h2>Konfirmasi program yang sesuai.</h2><p>Ketentuan penghasilan, lokasi, harga, tenor, dan subsidi bisa berbeda. Rumah dalam katalog ini tidak dinyatakan memenuhi syarat FLPP.</p><a class="text-link" href="https://www.tapera.go.id/kpr-flpp/" target="_blank" rel="noopener noreferrer">Syarat FLPP di BP Tapera <span>↗</span></a></article></div>
-      <section class="reference-section" aria-labelledby="references-title"><div><p class="eyebrow">REFERENSI PRODUK</p><h2 id="references-title">Pola yang dipakai, bukan klaim fitur pertama.</h2><p>Referensi ditinjau pada 14 November 2026. Tidak ada afiliasi atau integrasi dengan layanan berikut.</p></div><div class="reference-list"><a href="https://www.rumah123.com/kpr/kemampuan-kpr/" target="_blank" rel="noopener noreferrer"><strong>Rumah123 <span>↗</span></strong><p>Alur penghasilan → kemampuan beli → pilihan hunian.</p></a><a href="https://www.btnproperti.co.id/" target="_blank" rel="noopener noreferrer"><strong>balé properti <span>↗</span></strong><p>Pencarian, perbandingan, dan detail properti yang terstruktur.</p></a><a href="https://www.pinhome.id/" target="_blank" rel="noopener noreferrer"><strong>Pinhome <span>↗</span></strong><p>Pencarian yang menonjol dan pemisahan kebutuhan pengguna.</p></a></div></section>
-      <section class="prototype-details"><h2>Tentang prototipe ini</h2><p>Nama proyek, developer, harga, spesifikasi, biaya rutin, dokumen, dan riwayat adalah data fiktif. Foto dari Unsplash hanya ilustrasi, bukan foto properti terkait. Tidak ada pemeriksaan legal, pengajuan kredit, AI, atau pencatatan blockchain yang berjalan.</p><p>Favorit, pilihan perbandingan, dan checklist disimpan lokal. Catatan pemasukan, biaya usaha, penghasilan, utang, dan tabungan tidak disimpan; hilang setelah halaman dimuat ulang. Bila penyimpanan browser diblokir, pilihan hanya berlaku selama sesi dan akan diberi pemberitahuan.</p><p>Untuk menjalankan kembali: <code>npm start</code>, lalu buka <code>http://127.0.0.1:4187</code>. Bisa juga membuka <code>index.html</code> langsung. Tidak memerlukan instalasi paket.</p><p class="release-note">Pembaruan 2.2: beranda dengan pencarian lokasi dan harga, pilihan hunian dari katalog, navigasi kembali ke beranda, serta formulir anggaran tiga langkah dengan validasi per langkah. Catatan penghasilan enam bulan dan seluruh perhitungan versi 2.1 tetap tersedia. Font Manrope menggunakan lisensi SIL Open Font License.</p></section>
+    <div class="container"><div class="page-heading"><h1>Panduan pembeli</h1><p>Hal yang perlu disiapkan sebelum membeli rumah.</p></div>
+      <div class="guide-grid"><article class="guide-card"><span class="guide-number">01</span><h2>Biaya pembelian</h2><p>Siapkan uang muka, biaya transaksi, biaya rutin, dan dana darurat. Konfirmasikan bunga serta biaya pengajuan kepada bank.</p><a class="text-link" href="https://www.btnproperti.co.id/" target="_blank" rel="noopener noreferrer">Kunjungi balé properti <span>↗</span></a></article><article class="guide-card"><span class="guide-number">02</span><h2>Pemeriksaan dokumen</h2><p>Periksa sertipikat, izin bangunan, dan kondisi fisik rumah. Tanyakan pihak pemeriksa, tanggal, dan cakupan pemeriksaannya.</p><a class="text-link" href="https://perizinan.pu.go.id/portal/services/simbg" target="_blank" rel="noopener noreferrer">PBG dan SLF <span>↗</span></a></article><article class="guide-card"><span class="guide-number">03</span><h2>Program subsidi</h2><p>Periksa batas penghasilan, harga rumah, lokasi, dan persyaratan program yang berlaku.</p><a class="text-link" href="https://www.tapera.go.id/kpr-flpp/" target="_blank" rel="noopener noreferrer">Syarat FLPP <span>↗</span></a></article></div>
+      <section class="reference-section" aria-labelledby="references-title"><h2 id="references-title">Referensi</h2><div class="reference-list"><a href="https://www.rumah123.com/kpr/kemampuan-kpr/" target="_blank" rel="noopener noreferrer"><strong>Rumah123 <span>↗</span></strong><p>Perhitungan kemampuan beli dan pencarian hunian.</p></a><a href="https://www.btnproperti.co.id/" target="_blank" rel="noopener noreferrer"><strong>balé properti <span>↗</span></strong><p>Katalog dan perbandingan properti.</p></a><a href="https://www.pinhome.id/" target="_blank" rel="noopener noreferrer"><strong>Pinhome <span>↗</span></strong><p>Pencarian rumah berdasarkan kebutuhan.</p></a></div></section>
+      <section id="data-info" class="prototype-details"><h2>Informasi data</h2><p>Nama hunian, pengembang, harga, spesifikasi, biaya, dokumen, dan riwayat di website ini menggunakan data contoh. Foto berasal dari Unsplash dan tidak mewakili unit yang ditampilkan. Katalog ini belum melalui pemeriksaan legal atau penetapan kelayakan subsidi.</p><p>MatchHome merupakan demo independen untuk BTN Housingpreneur. Belum ada hubungan layanan resmi atau integrasi dengan BTN, OJK, biro kredit, maupun penyedia pembayaran. Hasil simulasi membantu perencanaan anggaran; keputusan kredit mengikuti pemeriksaan bank.</p><p>Penghasilan, biaya usaha, utang, dan tabungan diproses di browser serta hilang saat halaman dimuat ulang. Favorit, perbandingan, dan daftar persiapan disimpan di browser yang digunakan.</p><details><summary>Catatan pengembangan</summary><p>Jalankan <code>npm start</code> untuk membuka versi lokal di <code>http://127.0.0.1:4187</code>. Font Manrope menggunakan lisensi SIL Open Font License.</p><p class="release-note">Pembaruan: bahasa antarmuka diringkas, tanda baca judul diperbaiki, dan informasi data dipusatkan di bagian ini.</p></details></section>
     </div>
   </section>
 </main>
-<footer class="site-footer"><div class="container"><a class="brand" href="#beranda"><span class="brand-mark"><svg><use href="#i-home"/></svg></span>MatchHome<span class="brand-period">.</span></a><p>Prototipe edukasi BTN Housingpreneur.<br>Bukan layanan resmi BTN atau penawaran properti.</p><a href="#panduan">Sumber, privasi & batasan <span>↗</span></a></div></footer>
+<footer class="site-footer"><div class="container"><a class="brand" href="#beranda"><span class="brand-mark"><svg><use href="#i-home"/></svg></span>MatchHome</a><nav aria-label="Informasi"><a href="#panduan">Panduan pembeli</a><a href="#informasi">Informasi data</a></nav></div></footer>
 <div id="compare-bar" class="compare-bar" hidden><div><svg><use href="#i-compare"/></svg><span><strong id="compare-count">0 hunian</strong><small>Pilih 2–3 hunian untuk dibandingkan</small></span></div><button id="clear-compare" type="button" class="text-button">Hapus</button><button id="open-compare" type="button" class="button primary" disabled>Bandingkan <svg><use href="#i-arrow"/></svg></button></div>
-<dialog id="property-dialog" aria-labelledby="detail-title"><div class="detail-dialog-toolbar"><span>Detail hunian · data contoh</span><button type="button" class="dialog-close" aria-label="Tutup detail"><svg><use href="#i-close"/></svg></button></div><div id="detail-content"></div></dialog>
+<dialog id="property-dialog" aria-labelledby="detail-title"><div class="detail-dialog-toolbar"><span>Detail hunian</span><button type="button" class="dialog-close" aria-label="Tutup detail"><svg><use href="#i-close"/></svg></button></div><div id="detail-content"></div></dialog>
 <dialog id="compare-dialog" class="compare-dialog" aria-labelledby="compare-title"><div class="dialog-heading"><div><p class="eyebrow">PERBANDINGAN</p><h2 id="compare-title">Bandingkan hunian</h2><p class="compare-scroll-hint">↔ Geser tabel untuk melihat hunian lainnya.</p></div><button class="dialog-close" type="button" aria-label="Tutup perbandingan"><svg><use href="#i-close"/></svg></button></div><div id="compare-content"></div></dialog>
 <div id="toast" class="toast" role="status" hidden></div>
 <noscript><p class="noscript">Aktifkan JavaScript untuk menggunakan katalog dan simulasi MatchHome.</p></noscript>
