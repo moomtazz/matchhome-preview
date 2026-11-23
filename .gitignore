@@ -1,0 +1,22 @@
+# Only publish the application. Keep proposals, research, and personal images local.
+/*
+!/.gitignore
+!/.nojekyll
+!/index.html
+!/styles.css
+!/app.js
+!/finance.js
+!/data.js
+!/package.json
+!/server.cjs
+!/finance.test.cjs
+!/assets/
+/assets/*
+!/assets/hero.jpg
+!/assets/house-1.jpg
+!/assets/house-2.jpg
+!/assets/house-3.jpg
+!/assets/apartment.jpg
+!/assets/manrope-regular.ttf
+!/assets/manrope-bold.ttf
+!/assets/Manrope-LICENSE.txt
