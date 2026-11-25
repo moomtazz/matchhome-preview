@@ -23,9 +23,14 @@ p { line-height:1.75; }
 .skip-link:focus { top:10px; }
 .site-header { background:#fffffffa; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20; }
 .header-inner { width:min(1280px,calc(100% - 80px)); margin:auto; min-height:78px; display:flex; align-items:center; gap:32px; }
-.brand { display:inline-flex; align-items:center; gap:8px; font-size:24px; font-weight:700; letter-spacing:-1.2px; white-space:nowrap; }
-.brand-mark { display:grid; place-items:center; color:var(--brand); }
-.brand-mark svg { width:29px; height:29px; stroke-width:2; }
+.brand { display:inline-flex; align-items:center; gap:8px; font-size:24px; font-weight:700; letter-spacing:-1.2px; line-height:1; white-space:nowrap; }
+.brand-mark { display:grid; place-items:center; }
+.brand-mark svg { width:38px; height:38px; stroke:none; }
+.brand-name { display:block; }
+.brand-name small { display:block; margin-top:4px; color:#657084; font-size:8px; font-weight:400; letter-spacing:0; line-height:1.2; }
+.brand-match { color:#0b1c4f; }
+.brand-home { color:#1852dd; }
+.brand-id { color:#e51e2b; }
 .site-header nav { display:flex; align-self:stretch; align-items:stretch; gap:26px; margin-left:25px; }
 .site-header nav a { display:flex; align-items:center; gap:7px; font-size:14px; border-bottom:3px solid transparent; padding-top:3px; font-weight:500; color:#53665d; white-space:nowrap; }
 .site-header nav a.active { border-bottom-color:var(--brand); color:var(--brand); }

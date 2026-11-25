@@ -7,7 +7,7 @@
   <meta name="description" content="Hitung anggaran pembelian rumah dari penghasilan bersih, biaya hidup, dana awal, dan skenario perubahan bunga.">
   <title>MatchHome — Cari rumah, rencanakan biayanya</title>
   <link rel="preload" href="assets/manrope-regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=2.2.3">
+  <link rel="stylesheet" href="styles.css?v=2.2.4">
   <script src="finance.js" defer></script>
   <script src="data.js" defer></script>
   <script src="app.js?v=2.2.3" defer></script>
@@ -15,6 +15,7 @@
 <body>
 <a class="skip-link" href="#main-content">Lewati ke konten</a>
 <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+  <symbol id="matchhome-logo" viewBox="0 0 100 100"><path d="M19 58 56 25 94 59v32H19Z" fill="none" stroke="#e51e2b" stroke-width="5" stroke-linejoin="round"/><path d="M7 43 47 7a4 4 0 0 1 6 0l38 35v38a4 4 0 0 1-4 4H11a4 4 0 0 1-4-4Z" fill="#1852dd" stroke="none"/><path d="m31 51 13 13 25-29" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
   <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 10h2m4 0h2M8 14h2m4 0h2M8 18h2m4 0h2"/></symbol>
@@ -33,7 +34,7 @@
 </defs></svg>
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="#beranda" aria-label="MatchHome beranda"><span class="brand-mark"><svg><use href="#i-home"/></svg></span>MatchHome</a>
+    <a class="brand" href="#beranda" aria-label="MatchHome.id beranda"><span class="brand-mark"><svg aria-hidden="true"><use href="#matchhome-logo"/></svg></span><span class="brand-name"><span class="brand-match">Match</span><span class="brand-home">Home</span><span class="brand-id">.id</span><small>Rumah yang pas untuk kantongmu</small></span></a>
     <nav aria-label="Menu utama">
       <a href="#beranda" data-view="beranda">Beranda</a>
       <a href="#jelajah" data-view="jelajah">Cari hunian</a>
@@ -160,7 +161,7 @@
     </div>
   </section>
 </main>
-<footer class="site-footer"><div class="container"><a class="brand" href="#beranda"><span class="brand-mark"><svg><use href="#i-home"/></svg></span>MatchHome</a><nav aria-label="Informasi"><a href="#panduan">Panduan pembeli</a><a href="#informasi">Informasi data</a></nav></div></footer>
+<footer class="site-footer"><div class="container"><a class="brand" href="#beranda" aria-label="MatchHome.id beranda"><span class="brand-mark"><svg aria-hidden="true"><use href="#matchhome-logo"/></svg></span><span class="brand-name"><span class="brand-match">Match</span><span class="brand-home">Home</span><span class="brand-id">.id</span><small>Rumah yang pas untuk kantongmu</small></span></a><nav aria-label="Informasi"><a href="#panduan">Panduan pembeli</a><a href="#informasi">Informasi data</a></nav></div></footer>
 <div id="compare-bar" class="compare-bar" hidden><div><svg><use href="#i-compare"/></svg><span><strong id="compare-count">0 hunian</strong><small>Pilih 2–3 hunian untuk dibandingkan</small></span></div><button id="clear-compare" type="button" class="text-button">Hapus</button><button id="open-compare" type="button" class="button primary" disabled>Bandingkan <svg><use href="#i-arrow"/></svg></button></div>
 <dialog id="property-dialog" aria-labelledby="detail-title"><div class="detail-dialog-toolbar"><span>Detail hunian</span><button type="button" class="dialog-close" aria-label="Tutup detail"><svg><use href="#i-close"/></svg></button></div><div id="detail-content"></div></dialog>
 <dialog id="compare-dialog" class="compare-dialog" aria-labelledby="compare-title"><div class="dialog-heading"><div><p class="eyebrow">PERBANDINGAN</p><h2 id="compare-title">Bandingkan hunian</h2><p class="compare-scroll-hint">↔ Geser tabel untuk melihat hunian lainnya.</p></div><button class="dialog-close" type="button" aria-label="Tutup perbandingan"><svg><use href="#i-close"/></svg></button></div><div id="compare-content"></div></dialog>
