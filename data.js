@@ -244,7 +244,7 @@
       price: 650000000, beds: 2, baths: 1, building: 55, land: 80, type: 'Rumah', image: 'house-1',
       developer: 'Surya Pagi (contoh fiktif)',
       description: 'Contoh rumah dengan panel surya di atap dan ventilasi silang. Spesifikasi, lokasi, harga, dan fitur hanya ilustrasi; bukan unit yang ditawarkan.',
-      amenities: ['Carport', 'Taman'], features: ['Panel surya', 'Ventilasi silang'],
+      amenities: ['Carport', 'Taman'], features: ['Panel surya', 'Ventilasi silang'], details: { floors: '1 lantai', electricity: '2.200 VA', water: 'Air PDAM', furnishing: 'Tanpa furnitur', access: 'Akses sekolah dan transportasi perlu dikonfirmasi' },
       monthlyCosts: { utilities: 550000, management: 150000 }, readiness: 'Siap huni', documentType: 'SHM',
       documents: createDocumentExamples('SHM', 'Siap huni'), timeline: createTimelineExamples()
     },
@@ -253,7 +253,7 @@
       price: 395000000, beds: 2, baths: 1, building: 40, land: 72, type: 'Rumah', image: 'house-2',
       developer: 'Teduh Hunian (contoh fiktif)',
       description: 'Contoh rumah dengan ventilasi silang dan pencahayaan alami. Seluruh rincian hanya ilustrasi dan belum diperiksa.',
-      amenities: ['Teras', 'Halaman'], features: ['Ventilasi silang', 'Pencahayaan alami'],
+      amenities: ['Teras', 'Halaman'], features: ['Ventilasi silang', 'Pencahayaan alami'], details: { floors: '1 lantai', electricity: '1.300 VA', water: 'Air PDAM', furnishing: 'Tanpa furnitur', access: 'Akses sekolah dan fasilitas kesehatan perlu dikonfirmasi' },
       monthlyCosts: { utilities: 450000, management: 100000 }, readiness: 'Dalam pembangunan', documentType: 'SHGB',
       documents: createDocumentExamples('SHGB', 'Dalam pembangunan'), timeline: createTimelineExamples()
     },
@@ -262,7 +262,7 @@
       price: 425000000, beds: 2, baths: 1, building: 45, land: 75, type: 'Rumah', image: 'house-3',
       developer: 'Banyu Asri (contoh fiktif)',
       description: 'Contoh rumah dengan penampung air hujan untuk penggunaan nonminum dan pencahayaan alami. Fitur dan biaya hanya ilustrasi.',
-      amenities: ['Carport', 'Halaman'], features: ['Penampung air hujan', 'Pencahayaan alami'],
+      amenities: ['Carport', 'Halaman'], features: ['Penampung air hujan', 'Pencahayaan alami'], details: { floors: '1 lantai', electricity: '1.300 VA', water: 'Air PDAM', furnishing: 'Tanpa furnitur', access: 'Akses transportasi perlu dikonfirmasi' },
       monthlyCosts: { utilities: 475000, management: 100000 }, readiness: 'Siap huni', documentType: 'SHM',
       documents: createDocumentExamples('SHM', 'Siap huni'), timeline: createTimelineExamples()
     },
@@ -271,7 +271,7 @@
       price: 560000000, beds: 3, baths: 2, building: 60, land: 90, type: 'Rumah', image: 'house-1',
       developer: 'Mentari Hunian (contoh fiktif)',
       description: 'Contoh rumah dengan panel surya di atap dan area resapan. Data, foto, harga, dan ciri rumah hanya ilustrasi.',
-      amenities: ['Carport', 'Teras'], features: ['Panel surya', 'Area resapan'],
+      amenities: ['Carport', 'Teras'], features: ['Panel surya', 'Area resapan'], details: { floors: '2 lantai', electricity: '2.200 VA', water: 'Air PDAM', furnishing: 'Tanpa furnitur', access: 'Akses transportasi dan fasilitas kesehatan perlu dikonfirmasi' },
       monthlyCosts: { utilities: 575000, management: 125000 }, readiness: 'Dalam pembangunan', documentType: 'SHGB',
       documents: createDocumentExamples('SHGB', 'Dalam pembangunan'), timeline: createTimelineExamples()
     }

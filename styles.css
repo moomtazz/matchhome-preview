@@ -316,7 +316,7 @@ html:has(dialog[open]) { overflow:hidden; }
 .detail-description { color:#6a7e89; font-size:13px; margin:20px 0; line-height:1.9; }
 .amenities { display:flex; flex-wrap:wrap; gap:7px; margin:16px 0; }
 .amenities span { font-size:13px; background:var(--canvas); border:1px solid #e5ebee; padding:6px 9px; border-radius:4px; }
-.detail-tabs { display:flex; border-bottom:1px solid var(--line); gap:25px; margin-top:28px; }
+.detail-tabs { display:flex; flex-wrap:wrap; border-bottom:1px solid var(--line); gap:0 25px; margin-top:28px; }
 .detail-tabs button { padding:13px 0; font-size:13px; color:var(--muted); border:0; border-bottom:2px solid transparent; background:#fff; }
 .detail-tabs button.active { color:var(--brand); border-bottom-color:var(--brand); font-weight:700; }
 .detail-tab-panel { padding:22px 0 0; }

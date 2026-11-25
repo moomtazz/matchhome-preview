@@ -230,6 +230,7 @@
       ${row('Harga contoh', selection.map((property) => `<strong>${money(property.price)}</strong>`))}
       ${row('Kamar', selection.map((property) => `${property.beds} tidur · ${property.baths} mandi`))}
       ${row('Luas bangunan / tanah', selection.map((property) => `${property.building} m² / ${property.land ? `${property.land} m²` : '—'}`))}
+      ${row('Lantai / listrik', selection.map((property) => `${escapeHtml(property.details?.floors || 'Belum ada informasi')}<br>${escapeHtml(property.details?.electricity || 'Daya listrik belum diketahui')}`))}
       ${row('Kondisi ilustratif', selection.map((property) => escapeHtml(property.readiness)))}
       ${row('Ciri hunian', selection.map((property) => (property.features || []).map(escapeHtml).join('<br>') || 'Belum ada informasi'))}
       ${row('Jenis sertipikat', selection.map((property) => `${property.documentType}<br>Belum diperiksa`))}
@@ -270,6 +271,9 @@
   }
 
   function detailPanel(property) {
+    if (detailTab === 'lingkungan') {
+      return `<p>Informasi lokasi berikut belum diperiksa dan tidak menjamin kondisi atau keselamatan rumah.</p><dl class="receipt"><div><dt>Riwayat banjir</dt><dd>Belum diketahui</dd></div><div><dt>Drainase dan akses jalan</dt><dd>Perlu pemeriksaan lapangan</dd></div><div><dt>Fasilitas sekitar</dt><dd>${escapeHtml(property.details?.access || 'Belum ada informasi')}</dd></div></dl><p>Tanyakan riwayat genangan kepada warga dan pengelola, periksa akses saat hujan, dan lihat informasi wilayah dari <a class="text-link" href="https://inarisk.bnpb.go.id/" target="_blank" rel="noopener noreferrer">InaRISK BNPB ↗</a>. Peta wilayah tidak memastikan kondisi satu rumah.</p>`;
+    }
     if (detailTab === 'dokumen') {
       return `<p>Tidak ada dokumen asli atau pemeriksaan legal dalam prototipe. Tautan di bawah adalah rujukan proses, bukan bukti pemeriksaan unit.</p><div class="document-grid">${property.documents.map((document) => `<article class="document-item"><h4>${escapeHtml(document.name)}</h4><span class="document-state">${escapeHtml(document.status)}</span><p>${escapeHtml(document.note)}</p><dl><dt>Sumber</dt><dd>${escapeHtml(document.source)}</dd><dt>Pemeriksa / tanggal</dt><dd>${escapeHtml(document.reviewer)} / ${escapeHtml(document.date)}</dd></dl>${document.officialUrl ? `<a href="${escapeHtml(document.officialUrl)}" target="_blank" rel="noopener noreferrer">Rujukan resmi ↗</a>` : ''}</article>`).join('')}</div>`;
     }
@@ -286,7 +290,7 @@
     if (!property) return;
     activeDetail = id;
     detailTab = 'biaya';
-    $('#detail-content').innerHTML = `<div class="detail-photo"><img class="detail-image" src="assets/${property.image}.jpg" alt="Ilustrasi ${escapeHtml(property.name)}"></div><div class="detail-body"><div class="detail-top"><div><p class="eyebrow">${escapeHtml(property.type)} · ${escapeHtml(property.readiness)}</p><h2 id="detail-title">${escapeHtml(property.name)}</h2><p class="detail-location">${escapeHtml(property.district)}, ${escapeHtml(property.city)}</p></div><div><p class="detail-price">${money(property.price)}</p><span class="detail-price-caption">Harga properti</span></div></div><div class="detail-specs"><span>${icon('bed')}${property.beds} kamar tidur · ${property.baths} kamar mandi</span><span>${icon('area')}LB ${property.building} m²${property.land ? ` · LT ${property.land} m²` : ''}</span><span>${property.documentType} · belum diperiksa</span></div><p class="detail-description">${escapeHtml(property.description)}<br>Pengembang: ${escapeHtml(property.developer)}</p><div class="amenities">${[...property.amenities, ...(property.features || [])].map((amenity) => `<span>${escapeHtml(amenity)}</span>`).join('')}</div>${property.features?.length ? '<p>Ciri hunian adalah data simulasi, bukan sertifikasi atau jaminan penghematan. Biaya listrik dan air tidak dihitung berdasarkan ciri tersebut.</p>' : ''}<div class="detail-tabs" role="group" aria-label="Informasi properti"><button type="button" class="active" data-detail-tab="biaya" aria-pressed="true">Biaya hunian</button><button type="button" data-detail-tab="dokumen" aria-pressed="false">Status dokumen</button><button type="button" data-detail-tab="riwayat" aria-pressed="false">Riwayat contoh</button></div><div id="detail-tab-panel" class="detail-tab-panel">${detailPanel(property)}</div><div class="detail-actions"><button type="button" class="button primary" data-simulate="${property.id}">Hitung anggaran rumah ini ${icon('arrow')}</button>${favoriteButton(property, true)}<button type="button" class="button secondary" data-toggle-compare="${property.id}" aria-pressed="${comparison.has(property.id)}">${icon('compare')}Bandingkan</button></div></div>`;
+    $('#detail-content').innerHTML = `<div class="detail-photo"><img class="detail-image" src="assets/${property.image}.jpg" alt="Ilustrasi ${escapeHtml(property.name)}"></div><div class="detail-body"><div class="detail-top"><div><p class="eyebrow">${escapeHtml(property.type)} · ${escapeHtml(property.readiness)}</p><h2 id="detail-title">${escapeHtml(property.name)}</h2><p class="detail-location">${escapeHtml(property.district)}, ${escapeHtml(property.city)}</p></div><div><p class="detail-price">${money(property.price)}</p><span class="detail-price-caption">Harga properti</span></div></div><div class="detail-specs"><span>${icon('bed')}${property.beds} kamar tidur · ${property.baths} kamar mandi</span><span>${icon('area')}LB ${property.building} m²${property.land ? ` · LT ${property.land} m²` : ''}</span><span>${property.documentType} · belum diperiksa</span></div><p class="detail-description">${escapeHtml(property.description)}<br>Pengembang: ${escapeHtml(property.developer)}</p><dl class="receipt"><div><dt>Jumlah lantai</dt><dd>${escapeHtml(property.details?.floors || 'Belum ada informasi')}</dd></div><div><dt>Daya listrik</dt><dd>${escapeHtml(property.details?.electricity || 'Belum ada informasi')}</dd></div><div><dt>Sumber air</dt><dd>${escapeHtml(property.details?.water || 'Belum ada informasi')}</dd></div><div><dt>Furnitur</dt><dd>${escapeHtml(property.details?.furnishing || 'Belum ada informasi')}</dd></div></dl><div class="amenities">${[...property.amenities, ...(property.features || [])].map((amenity) => `<span>${escapeHtml(amenity)}</span>`).join('')}</div>${property.features?.length ? '<p>Ciri hunian adalah data simulasi, bukan sertifikasi atau jaminan penghematan. Biaya listrik dan air tidak dihitung berdasarkan ciri tersebut.</p>' : ''}<div class="detail-tabs" role="group" aria-label="Informasi properti"><button type="button" class="active" data-detail-tab="biaya" aria-pressed="true">Biaya hunian</button><button type="button" data-detail-tab="lingkungan" aria-pressed="false">Lokasi & lingkungan</button><button type="button" data-detail-tab="dokumen" aria-pressed="false">Status dokumen</button><button type="button" data-detail-tab="riwayat" aria-pressed="false">Riwayat contoh</button></div><div id="detail-tab-panel" class="detail-tab-panel">${detailPanel(property)}</div><div class="detail-actions"><button type="button" class="button primary" data-simulate="${property.id}">Hitung anggaran rumah ini ${icon('arrow')}</button>${favoriteButton(property, true)}<button type="button" class="button secondary" data-toggle-compare="${property.id}" aria-pressed="false">${icon('compare')}Bandingkan</button></div></div>`;
     if (!$('#property-dialog').open) $('#property-dialog').showModal();
     $('#property-dialog').scrollTop = 0;
     syncComparison();
@@ -562,7 +566,7 @@
 
   function route() {
     const hash = location.hash.slice(1);
-    const aliases = { katalog: 'jelajah', favorit: 'rencana', informasi: 'panduan' };
+    const aliases = { katalog: 'jelajah', favorit: 'rencana', informasi: 'panduan', tentang: 'panduan' };
     const next = aliases[hash] || (['beranda', 'jelajah', 'simulasi', 'rencana', 'panduan'].includes(hash) ? hash : 'beranda');
     const changed = next !== currentView;
     currentView = next;
@@ -580,6 +584,7 @@
     syncComparison();
     if (hash === 'katalog') $('#katalog').scrollIntoView({ block: 'start' });
     else if (hash === 'informasi') $('#data-info').scrollIntoView({ block: 'start' });
+    else if (hash === 'tentang') $('#about-matchhome').scrollIntoView({ block: 'start' });
     else if (changed) window.scrollTo(0, 0);
     document.title = `${{ beranda: 'Beranda', jelajah: 'Cari hunian', simulasi: 'Hitung anggaran', rencana: 'Rencana saya', panduan: 'Panduan & sumber' }[next]} — MatchHome`;
   }
