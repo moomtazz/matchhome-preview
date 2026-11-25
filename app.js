@@ -566,7 +566,7 @@
 
   function route() {
     const hash = location.hash.slice(1);
-    const aliases = { katalog: 'jelajah', favorit: 'rencana', informasi: 'panduan', tentang: 'panduan' };
+    const aliases = { katalog: 'jelajah', favorit: 'rencana', informasi: 'panduan', tentang: 'panduan', bantuan: 'panduan' };
     const next = aliases[hash] || (['beranda', 'jelajah', 'simulasi', 'rencana', 'panduan'].includes(hash) ? hash : 'beranda');
     const changed = next !== currentView;
     currentView = next;
@@ -585,6 +585,7 @@
     if (hash === 'katalog') $('#katalog').scrollIntoView({ block: 'start' });
     else if (hash === 'informasi') $('#data-info').scrollIntoView({ block: 'start' });
     else if (hash === 'tentang') $('#about-matchhome').scrollIntoView({ block: 'start' });
+    else if (hash === 'bantuan') $('#help-matchhome').scrollIntoView({ block: 'start' });
     else if (changed) window.scrollTo(0, 0);
     document.title = `${{ beranda: 'Beranda', jelajah: 'Cari hunian', simulasi: 'Hitung anggaran', rencana: 'Rencana saya', panduan: 'Panduan & sumber' }[next]} — MatchHome`;
   }
