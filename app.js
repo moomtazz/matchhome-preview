@@ -36,6 +36,7 @@
   let detailTab = 'biaya';
   let lastCalculation = null;
   let appliedBudget = null;
+  const comparisonCommutes = new Map();
   let exampleLoaded = false;
   let toastTimer;
 
@@ -231,9 +232,35 @@
       ${row('DP', finances.map((result) => money(result.mortgage.downPayment)))}
       ${appliedBudget ? row('Dana awal termasuk biaya', finances.map((result) => money(result.mortgage.totalCash))) : ''}
       ${row('Biaya rutin / bulan', selection.map((property) => `${money(propertyCosts(property))}<br><small>Utilitas & pengelolaan, asumsi</small>`))}
-      ${appliedBudget ? row('Hasil terhadap anggaran', finances.map((result) => `<strong>${result.assessment.fits ? 'Masuk asumsi' : 'Belum masuk asumsi'}</strong><br>${fitReason(result.assessment)}`)) : ''}
+      ${appliedBudget ? row('Perjalanan pribadi / bulan', selection.map((property) => `<label class="compare-commute"><span class="sr-only">Biaya perjalanan pribadi per bulan untuk ${escapeHtml(property.name)}</span><span>Rp</span><input type="number" min="0" max="1000000000" step="1" required inputmode="numeric" data-compare-commute="${property.id}" value="${comparisonCommutes.get(property.id) ?? appliedBudget.profile.commuteCosts}"></label>`)) : ''}
+      ${appliedBudget ? row(appliedBudget.profile.lowestMonthlyIncome !== undefined ? 'Sisa bulan rata-rata' : 'Sisa penghasilan bulanan', selection.map((property) => `<span data-compare-normal="${property.id}"></span>`)) : ''}
+      ${appliedBudget && appliedBudget.profile.lowestMonthlyIncome !== undefined ? row('Sisa bulan terendah', selection.map((property) => `<span data-compare-low="${property.id}"></span>`)) : ''}
+      ${appliedBudget ? row('Hasil terhadap anggaran', selection.map((property) => `<span data-compare-result="${property.id}"></span>`)) : ''}
       ${row('Langkah berikutnya', selection.map((property) => `<button type="button" class="button secondary" data-simulate="${property.id}">Hitung anggaran</button>`))}
-    </tbody></table></div><p class="compare-caption">${appliedBudget ? 'Pembiayaan memakai skenario anggaran yang diterapkan. Biaya rutin masing-masing rumah memakai data contoh.' : 'Asumsi pembiayaan: DP 20%, bunga 7% tetap selama 20 tahun. DP belum mencakup biaya transaksi.'} Seluruh data/foto adalah ilustrasi; dokumen belum diperiksa.</p>`;
+    </tbody></table></div><p class="compare-caption">${appliedBudget ? 'Ubah biaya perjalanan pribadi untuk tiap rumah; awalnya memakai angka dari simulasi. Jangan masukkan lagi biaya perjalanan usaha atau biaya yang sudah ada di pengeluaran lain. Sisa bulan rata-rata memakai cicilan awal; bulan terendah memakai cicilan tertinggi dari dua fase. Perubahan perjalanan hanya berlaku di tabel ini dan selama halaman terbuka; katalog tetap memakai biaya perjalanan dari simulasi. Bukan prediksi atau keputusan kredit.' : 'Asumsi pembiayaan: DP 20%, bunga 7% tetap selama 20 tahun. DP belum mencakup biaya transaksi. Hitung dan terapkan anggaran untuk membandingkan sisa uang serta biaya perjalanan tiap rumah.'} Seluruh data/foto adalah ilustrasi; biaya rutin adalah asumsi dan dokumen belum diperiksa.</p>`;
+    if (appliedBudget) selection.forEach(updateComparisonBudget);
+  }
+
+  function updateComparisonBudget(property) {
+    const input = $(`[data-compare-commute="${property.id}"]`);
+    const normal = $(`[data-compare-normal="${property.id}"]`);
+    const low = $(`[data-compare-low="${property.id}"]`);
+    const result = $(`[data-compare-result="${property.id}"]`);
+    if (!input || !appliedBudget) return;
+    if (!input.validity.valid || input.value.trim() === '') {
+      comparisonCommutes.delete(property.id);
+      normal.textContent = 'Isi biaya perjalanan yang valid.';
+      if (low) low.textContent = 'Belum dapat dihitung.';
+      result.textContent = 'Belum dapat dihitung.';
+      return;
+    }
+    const commute = Number(input.value);
+    comparisonCommutes.set(property.id, commute);
+    const mortgage = Finance.calculateMortgage({ ...appliedBudget.options, price: property.price });
+    const assessment = Finance.assessAffordability(mortgage, { ...appliedBudget.profile, commuteCosts: commute }, propertyCosts(property));
+    normal.textContent = `${money(assessment.normalSurplus)} / bulan`;
+    if (low) low.textContent = `${money(assessment.historySurplus)} / bulan`;
+    result.innerHTML = `<strong>${assessment.fits ? 'Masuk asumsi' : 'Belum masuk asumsi'}</strong><br>${fitReason(assessment)}`;
   }
 
   function detailPanel(property) {
@@ -630,6 +657,7 @@
   $('#apply-budget').addEventListener('click', () => {
     if ($('#apply-budget').disabled || !lastCalculation) return;
     appliedBudget = { options: { ...lastCalculation.options }, profile: { ...lastCalculation.profile } };
+    comparisonCommutes.clear();
     filters.fitOnly = true;
     $('#sort').value = 'affordable';
     renderBudgetBanner(); renderListings();
@@ -667,6 +695,10 @@
       else completed.delete(input.dataset.checklist);
       persist('matchhome-checklist', completed); updateChecklistProgress();
     } else if (input.id === 'fit-only') { filters.fitOnly = input.checked; renderListings(); }
+  });
+  $('#compare-content').addEventListener('input', (event) => {
+    const property = byId.get(event.target.dataset.compareCommute);
+    if (property) updateComparisonBudget(property);
   });
   $$('dialog').forEach((dialog) => {
     dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());

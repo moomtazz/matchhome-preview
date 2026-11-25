@@ -350,6 +350,10 @@ html:has(dialog[open]) { overflow:hidden; }
 .compare-table h3 { font-size:13px; line-height:1.6; margin:8px 0 4px; }
 .compare-table .remove-item { font-size:13px; color:#8a5d4e; background:none; border:0; padding:7px 0; text-decoration:underline; text-underline-offset:3px; }
 .compare-table .button { font-size:13px; padding:9px 10px; min-height:44px; }
+.compare-commute { display:flex; align-items:center; gap:6px; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.compare-commute input { width:100%; min-width:0; min-height:44px; border:1px solid #8a9ca5; border-radius:4px; padding:8px; font:inherit; color:#193e50; }
+.compare-commute input:invalid { border-color:#a33; }
 .compare-caption { font-size:13px; color:#748993; padding:18px 25px; line-height:1.8; margin:0; }
 .toast { position:fixed; bottom:25px; left:50%; transform:translateX(-50%); color:#fff; background:#193e50; border:1px solid #ffffff44; box-shadow:0 4px 25px #0002; padding:14px 22px; font-size:13px; line-height:1.7; z-index:100; border-radius:6px; max-width:calc(100% - 32px); width:max-content; text-align:center; }
 body:has(#compare-bar:not([hidden])) .toast { bottom:112px; }

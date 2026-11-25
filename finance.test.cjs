@@ -118,6 +118,16 @@ test('income stress, recurring property costs and existing commitments reduce re
   assert.ok(lowerIncome.stressSurplus < 0);
 });
 
+test('different commutes change each home’s normal and lowest-month balances once', () => {
+  const mortgage = calculateMortgage(base);
+  const variable = { ...profile, lowestMonthlyIncome: 9000000 };
+  const first = assessAffordability(mortgage, { ...variable, commuteCosts: 700000 }, 800000);
+  const second = assessAffordability(mortgage, { ...variable, commuteCosts: 200000 }, 800000);
+  close(second.normalSurplus - first.normalSurplus, 500000);
+  close(second.historySurplus - first.historySurplus, 500000);
+  close(second.cashGap, first.cashGap);
+});
+
 test('zero net income preserves the full household deficit', () => {
   const mortgage = calculateMortgage(base);
   const result = assessAffordability(mortgage, { ...profile, income: 0 }, 800000);
