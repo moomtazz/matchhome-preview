@@ -27,8 +27,10 @@
   const favorites = loadSet('matchhome-favorites', byId);
   const comparison = loadSet('matchhome-comparison', byId, 3);
   const completed = loadSet('matchhome-checklist', checklistIds);
-  const filters = { query: '', budget: 0, bedrooms: 0, type: 'all', readiness: 'all', fitOnly: false };
-  const homeProperties = [...properties].sort((a, b) => a.price - b.price).slice(0, 3);
+  const filters = { query: '', budget: 0, bedrooms: 0, type: 'all', readiness: 'all', feature: 'all', fitOnly: false };
+  const homeProperties = [...properties].sort((a, b) => a.price - b.price).slice(0, 2);
+  const solarExample = properties.find((property) => property.features?.includes('Panel surya'));
+  if (solarExample) homeProperties.push(solarExample);
   let currentView = 'beranda';
   let calculatorStep = 0;
   let planTab = 'saved';
@@ -90,7 +92,8 @@
       <div class="card-body"><p class="card-price">${compact(property.price)}</p><h3><button class="card-title" type="button" data-detail="${property.id}">${escapeHtml(property.name)}</button></h3><p class="card-location">${icon('pin')}${escapeHtml(property.district)}, ${escapeHtml(property.city)}</p>
       <div class="card-specs"><span>${icon('bed')}${property.beds} KT · ${property.baths} KM</span><span>${icon('area')}LB ${property.building} m²</span>${property.land ? `<span>LT ${property.land} m²</span>` : ''}</div>
       <div class="card-status"><span class="status-label">${escapeHtml(property.readiness)}</span><span>Dokumen belum diperiksa</span></div>
-      <p class="monthly-hint">Cicilan ${evaluation ? 'awal' : 'contoh'} <strong>${money(mortgage.initialPayment)}/bln</strong>${evaluation ? `<br>Sesuai skenario anggaran yang diterapkan` : ''}</p>
+      ${property.features?.length ? `<p class="monthly-hint">Ciri hunian: ${property.features.map(escapeHtml).join(' · ')}</p>` : ''}
+      <p class="monthly-hint">Estimasi cicilan ${evaluation ? 'awal' : ''} <strong>${money(mortgage.initialPayment)}/bln</strong>${evaluation ? `<br>Sesuai skenario anggaran yang diterapkan` : ''}</p>
       ${evaluation ? `<p class="card-fit ${evaluation.assessment.fits ? 'fits' : ''}"><strong>${evaluation.assessment.fits ? 'Masuk asumsi anggaran' : 'Belum masuk asumsi anggaran'}</strong><br>${fitReason(evaluation.assessment)}</p>` : ''}
       <div class="card-actions"><label class="compare-label"><input type="checkbox" data-compare="${property.id}" ${comparison.has(property.id) ? 'checked' : ''}>Bandingkan</label><button type="button" class="detail-button" data-detail="${property.id}" aria-label="Lihat detail ${escapeHtml(property.name)}">Lihat detail ${icon('arrow')}</button></div></div>
     </article>`;
@@ -103,6 +106,7 @@
       (!filters.budget || property.price <= filters.budget) && property.beds >= filters.bedrooms &&
       (filters.type === 'all' || property.type === filters.type) &&
       (filters.readiness === 'all' || property.readiness === filters.readiness) &&
+      (filters.feature === 'all' || (property.features || []).includes(filters.feature)) &&
       (!filters.fitOnly || (appliedBudget && evaluateProperty(property).assessment.fits))
     );
     const sort = $('#sort').value;
@@ -125,7 +129,7 @@
       : 'Asumsi cicilan: DP 20%, bunga 7% per tahun, tenor 20 tahun.';
     $('#home-listing-note').textContent = $('.listing-footnote').textContent;
     $('#empty-state').hidden = results.length > 0;
-    $('#empty-state p').textContent = filters.fitOnly ? 'Tidak ada pilihan yang memenuhi seluruh asumsi arus kas dan dana awal saat ini. Ubah skenario atau nonaktifkan filter anggaran; jangan memaksakan pembelian.' : 'Coba lokasi lain atau longgarkan batas harga dan kamar.';
+    $('#empty-state p').textContent = filters.fitOnly ? 'Tidak ada pilihan yang memenuhi seluruh asumsi arus kas dan dana awal saat ini. Ubah skenario atau nonaktifkan filter anggaran; jangan memaksakan pembelian.' : 'Belum ada data simulasi untuk pencarian ini. Coba lokasi lain atau ubah filter.';
     $('#sort option[value="affordable"]').disabled = !appliedBudget;
     renderSaved();
     syncComparison();
@@ -150,9 +154,10 @@
   }
 
   function resetFilters() {
-    Object.assign(filters, { query: '', budget: 0, bedrooms: 0, type: 'all', readiness: 'all', fitOnly: false });
+    Object.assign(filters, { query: '', budget: 0, bedrooms: 0, type: 'all', readiness: 'all', feature: 'all', fitOnly: false });
     $('#search-form').reset();
     $('#readiness').value = 'all';
+    $('#feature').value = 'all';
     $('#sort').value = 'recommended';
     $$('[data-type]').forEach((button) => {
       const active = button.dataset.type === 'all';
@@ -226,6 +231,7 @@
       ${row('Kamar', selection.map((property) => `${property.beds} tidur · ${property.baths} mandi`))}
       ${row('Luas bangunan / tanah', selection.map((property) => `${property.building} m² / ${property.land ? `${property.land} m²` : '—'}`))}
       ${row('Kondisi ilustratif', selection.map((property) => escapeHtml(property.readiness)))}
+      ${row('Ciri hunian', selection.map((property) => (property.features || []).map(escapeHtml).join('<br>') || 'Belum ada informasi'))}
       ${row('Jenis sertipikat', selection.map((property) => `${property.documentType}<br>Belum diperiksa`))}
       ${row('Cicilan awal / bulan', finances.map((result) => money(result.mortgage.initialPayment)))}
       ${appliedBudget ? row('Cicilan setelah bunga awal', finances.map((result) => money(result.mortgage.laterPayment))) : ''}
@@ -280,7 +286,7 @@
     if (!property) return;
     activeDetail = id;
     detailTab = 'biaya';
-    $('#detail-content').innerHTML = `<div class="detail-photo"><img class="detail-image" src="assets/${property.image}.jpg" alt="Ilustrasi ${escapeHtml(property.name)}"></div><div class="detail-body"><div class="detail-top"><div><p class="eyebrow">${escapeHtml(property.type)} · ${escapeHtml(property.readiness)}</p><h2 id="detail-title">${escapeHtml(property.name)}</h2><p class="detail-location">${escapeHtml(property.district)}, ${escapeHtml(property.city)}</p></div><div><p class="detail-price">${money(property.price)}</p><span class="detail-price-caption">Harga properti</span></div></div><div class="detail-specs"><span>${icon('bed')}${property.beds} kamar tidur · ${property.baths} kamar mandi</span><span>${icon('area')}LB ${property.building} m²${property.land ? ` · LT ${property.land} m²` : ''}</span><span>${property.documentType} · belum diperiksa</span></div><p class="detail-description">${escapeHtml(property.description)}<br>Pengembang: ${escapeHtml(property.developer)}</p><div class="amenities">${property.amenities.map((amenity) => `<span>${escapeHtml(amenity)}</span>`).join('')}</div><div class="detail-tabs" role="group" aria-label="Informasi properti"><button type="button" class="active" data-detail-tab="biaya" aria-pressed="true">Biaya hunian</button><button type="button" data-detail-tab="dokumen" aria-pressed="false">Status dokumen</button><button type="button" data-detail-tab="riwayat" aria-pressed="false">Riwayat contoh</button></div><div id="detail-tab-panel" class="detail-tab-panel">${detailPanel(property)}</div><div class="detail-actions"><button type="button" class="button primary" data-simulate="${property.id}">Hitung anggaran rumah ini ${icon('arrow')}</button>${favoriteButton(property, true)}<button type="button" class="button secondary" data-toggle-compare="${property.id}" aria-pressed="${comparison.has(property.id)}">${icon('compare')}Bandingkan</button></div></div>`;
+    $('#detail-content').innerHTML = `<div class="detail-photo"><img class="detail-image" src="assets/${property.image}.jpg" alt="Ilustrasi ${escapeHtml(property.name)}"></div><div class="detail-body"><div class="detail-top"><div><p class="eyebrow">${escapeHtml(property.type)} · ${escapeHtml(property.readiness)}</p><h2 id="detail-title">${escapeHtml(property.name)}</h2><p class="detail-location">${escapeHtml(property.district)}, ${escapeHtml(property.city)}</p></div><div><p class="detail-price">${money(property.price)}</p><span class="detail-price-caption">Harga properti</span></div></div><div class="detail-specs"><span>${icon('bed')}${property.beds} kamar tidur · ${property.baths} kamar mandi</span><span>${icon('area')}LB ${property.building} m²${property.land ? ` · LT ${property.land} m²` : ''}</span><span>${property.documentType} · belum diperiksa</span></div><p class="detail-description">${escapeHtml(property.description)}<br>Pengembang: ${escapeHtml(property.developer)}</p><div class="amenities">${[...property.amenities, ...(property.features || [])].map((amenity) => `<span>${escapeHtml(amenity)}</span>`).join('')}</div>${property.features?.length ? '<p>Ciri hunian adalah data simulasi, bukan sertifikasi atau jaminan penghematan. Biaya listrik dan air tidak dihitung berdasarkan ciri tersebut.</p>' : ''}<div class="detail-tabs" role="group" aria-label="Informasi properti"><button type="button" class="active" data-detail-tab="biaya" aria-pressed="true">Biaya hunian</button><button type="button" data-detail-tab="dokumen" aria-pressed="false">Status dokumen</button><button type="button" data-detail-tab="riwayat" aria-pressed="false">Riwayat contoh</button></div><div id="detail-tab-panel" class="detail-tab-panel">${detailPanel(property)}</div><div class="detail-actions"><button type="button" class="button primary" data-simulate="${property.id}">Hitung anggaran rumah ini ${icon('arrow')}</button>${favoriteButton(property, true)}<button type="button" class="button secondary" data-toggle-compare="${property.id}" aria-pressed="${comparison.has(property.id)}">${icon('compare')}Bandingkan</button></div></div>`;
     if (!$('#property-dialog').open) $('#property-dialog').showModal();
     $('#property-dialog').scrollTop = 0;
     syncComparison();
@@ -600,6 +606,7 @@
     renderListings();
   });
   $('#readiness').addEventListener('change', () => { filters.readiness = $('#readiness').value; renderListings(); });
+  $('#feature').addEventListener('change', () => { filters.feature = $('#feature').value; renderListings(); });
   $('#sort').addEventListener('change', renderListings);
   $('#reset-filters').addEventListener('click', resetFilters);
   $('#empty-reset').addEventListener('click', resetFilters);
@@ -711,6 +718,7 @@
   window.addEventListener('hashchange', route);
 
   $('#calc-property').insertAdjacentHTML('beforeend', properties.map((property) => `<option value="${property.id}">${escapeHtml(property.name)} — ${compact(property.price)}</option>`).join(''));
+  $('#home-locations').innerHTML = [...new Set(properties.map((property) => property.city))].sort((a, b) => a.localeCompare(b, 'id')).map((city) => `<option value="${escapeHtml(city)}"></option>`).join('');
   renderIncomeMonths();
   syncIncomeMode();
   setCalculatorStep(0);

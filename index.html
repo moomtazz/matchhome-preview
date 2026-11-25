@@ -9,8 +9,8 @@
   <link rel="preload" href="assets/manrope-regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="styles.css?v=2.2.4">
   <script src="finance.js" defer></script>
-  <script src="data.js" defer></script>
-  <script src="app.js?v=2.2.3" defer></script>
+  <script src="data.js?v=2.2.5" defer></script>
+  <script src="app.js?v=2.2.5" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Lewati ke konten</a>
@@ -50,10 +50,10 @@
       <div class="home-hero">
         <div class="home-copy">
           <h1>Cari rumah<br><em>Rencanakan<br>biayanya</em></h1>
-          <p class="home-description">Cari hunian di Surabaya, Sidoarjo, Gresik, dan Malang, lalu bandingkan cicilan serta biaya awalnya.</p>
+          <p class="home-description">Setiap orang berhak punya tempat tinggal yang nyaman. Temukan pilihan hunian dan rencanakan biayanya sesuai kemampuanmu.</p>
           <form id="home-search" class="home-search">
             <label>Lokasi hunian<div class="home-location-input"><svg aria-hidden="true"><use href="#i-pin"/></svg><input id="home-query" type="search" placeholder="Kota, daerah, atau nama hunian" list="home-locations" autocomplete="off"></div></label>
-            <datalist id="home-locations"><option value="Surabaya"><option value="Sidoarjo"><option value="Gresik"><option value="Malang"></datalist>
+            <datalist id="home-locations"></datalist>
             <label>Harga maksimal<select id="home-budget"><option value="0">Semua harga</option><option value="300000000">Rp300 juta</option><option value="400000000">Rp400 juta</option><option value="600000000">Rp600 juta</option><option value="900000000">Rp900 juta</option><option value="1500000000">Rp1,5 miliar</option></select></label>
             <button class="button primary" type="submit">Cari hunian <svg aria-hidden="true"><use href="#i-search"/></svg></button>
           </form>
@@ -65,6 +65,7 @@
       </div>
       <section class="home-listings" aria-labelledby="home-listings-title">
         <div class="home-section-heading"><h2 id="home-listings-title">Pilihan hunian</h2><a href="#jelajah" class="text-link">Lihat semua hunian <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        <p class="listing-note">Hunian, harga, dan fitur yang ditampilkan masih simulasi, belum merupakan penawaran nyata.</p>
         <div id="home-property-grid" class="property-grid"></div>
         <p id="home-listing-note" class="listing-note"></p>
       </section>
@@ -76,14 +77,14 @@
   </section>
   <section id="explore-view" class="view" hidden>
     <div class="container">
-      <div class="page-heading catalog-heading" id="katalog"><p class="eyebrow">KATALOG HUNIAN</p><h1>Temukan pilihan rumahmu</h1><p>Jelajahi listing contoh di Surabaya, Sidoarjo, Gresik, dan Malang.</p></div>
+      <div class="page-heading catalog-heading" id="katalog"><p class="eyebrow">KATALOG HUNIAN</p><h1>Temukan pilihan rumahmu</h1><p>Jelajahi pilihan berdasarkan lokasi, anggaran, dan ciri hunian yang kamu cari.</p><p>Daftar hunian dan fiturnya masih data simulasi, belum merupakan penawaran nyata.</p></div>
       <form id="search-form" class="search-panel">
         <label class="search-location"><span>Lokasi atau nama hunian</span><div class="input-icon"><svg><use href="#i-search"/></svg><input id="query" type="search" placeholder="Contoh: Buduran, Sidoarjo" autocomplete="off"></div></label>
         <label><span>Harga maksimal</span><select id="budget"><option value="0">Semua harga</option><option value="300000000">Rp300 juta</option><option value="400000000">Rp400 juta</option><option value="600000000">Rp600 juta</option><option value="900000000">Rp900 juta</option><option value="1500000000">Rp1,5 miliar</option></select></label>
         <label><span>Kamar tidur</span><select id="bedrooms"><option value="0">Semua kamar</option><option value="2">2+ kamar</option><option value="3">3+ kamar</option><option value="4">4+ kamar</option></select></label>
         <button class="button primary" type="submit">Cari hunian <svg><use href="#i-arrow"/></svg></button>
       </form>
-      <div class="catalog-controls"><div class="filter-chips" role="group" aria-label="Tipe hunian"><button type="button" data-type="all" class="chip active" aria-pressed="true">Semua</button><button type="button" data-type="Rumah" class="chip" aria-pressed="false">Rumah tapak</button><button type="button" data-type="Apartemen" class="chip" aria-pressed="false">Apartemen</button></div><label class="inline-select">Kondisi <select id="readiness"><option value="all">Semua kondisi</option><option>Siap huni</option><option>Dalam pembangunan</option></select></label><button type="button" id="reset-filters" class="reset-button">Reset filter</button></div>
+      <div class="catalog-controls"><div class="filter-chips" role="group" aria-label="Tipe hunian"><button type="button" data-type="all" class="chip active" aria-pressed="true">Semua</button><button type="button" data-type="Rumah" class="chip" aria-pressed="false">Rumah tapak</button><button type="button" data-type="Apartemen" class="chip" aria-pressed="false">Apartemen</button></div><label class="inline-select">Ciri hunian <select id="feature"><option value="all">Semua ciri</option><option>Panel surya</option><option>Ventilasi silang</option><option>Pencahayaan alami</option><option>Penampung air hujan</option><option>Area resapan</option></select></label><label class="inline-select">Kondisi <select id="readiness"><option value="all">Semua kondisi</option><option>Siap huni</option><option>Dalam pembangunan</option></select></label><button type="button" id="reset-filters" class="reset-button">Reset filter</button></div>
       <div id="budget-banner" class="budget-banner"><div><strong>Belum ada anggaran yang diterapkan</strong><p>Hitung anggaran untuk membandingkan dana awal dan sisa bulanan tiap hunian.</p></div><a href="#simulasi" class="text-link">Hitung anggaran <span>↗</span></a></div>
       <div class="results-heading"><p id="result-count" aria-live="polite"></p><label class="sort-label">Urutkan <select id="sort"><option value="recommended">Urutan katalog</option><option value="lowest">Harga terendah</option><option value="highest">Harga tertinggi</option><option value="largest">Bangunan terluas</option><option value="affordable">Kesesuaian anggaran</option></select></label></div>
       <div id="property-grid" class="property-grid"></div>

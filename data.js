@@ -238,6 +238,42 @@
       documentType: 'SHM',
       documents: createDocumentExamples('SHM', 'Siap huni'),
       timeline: createTimelineExamples()
+    },
+    {
+      id: 'surya-bandung', name: 'Surya Pagi Residence', city: 'Bandung', district: 'Antapani',
+      price: 650000000, beds: 2, baths: 1, building: 55, land: 80, type: 'Rumah', image: 'house-1',
+      developer: 'Surya Pagi (contoh fiktif)',
+      description: 'Contoh rumah dengan panel surya di atap dan ventilasi silang. Spesifikasi, lokasi, harga, dan fitur hanya ilustrasi; bukan unit yang ditawarkan.',
+      amenities: ['Carport', 'Taman'], features: ['Panel surya', 'Ventilasi silang'],
+      monthlyCosts: { utilities: 550000, management: 150000 }, readiness: 'Siap huni', documentType: 'SHM',
+      documents: createDocumentExamples('SHM', 'Siap huni'), timeline: createTimelineExamples()
+    },
+    {
+      id: 'teduh-bogor', name: 'Teduh Bogor', city: 'Bogor', district: 'Tanah Sareal',
+      price: 395000000, beds: 2, baths: 1, building: 40, land: 72, type: 'Rumah', image: 'house-2',
+      developer: 'Teduh Hunian (contoh fiktif)',
+      description: 'Contoh rumah dengan ventilasi silang dan pencahayaan alami. Seluruh rincian hanya ilustrasi dan belum diperiksa.',
+      amenities: ['Teras', 'Halaman'], features: ['Ventilasi silang', 'Pencahayaan alami'],
+      monthlyCosts: { utilities: 450000, management: 100000 }, readiness: 'Dalam pembangunan', documentType: 'SHGB',
+      documents: createDocumentExamples('SHGB', 'Dalam pembangunan'), timeline: createTimelineExamples()
+    },
+    {
+      id: 'banyu-semarang', name: 'Banyu Asri', city: 'Semarang', district: 'Tembalang',
+      price: 425000000, beds: 2, baths: 1, building: 45, land: 75, type: 'Rumah', image: 'house-3',
+      developer: 'Banyu Asri (contoh fiktif)',
+      description: 'Contoh rumah dengan penampung air hujan untuk penggunaan nonminum dan pencahayaan alami. Fitur dan biaya hanya ilustrasi.',
+      amenities: ['Carport', 'Halaman'], features: ['Penampung air hujan', 'Pencahayaan alami'],
+      monthlyCosts: { utilities: 475000, management: 100000 }, readiness: 'Siap huni', documentType: 'SHM',
+      documents: createDocumentExamples('SHM', 'Siap huni'), timeline: createTimelineExamples()
+    },
+    {
+      id: 'mentari-makassar', name: 'Mentari Makassar', city: 'Makassar', district: 'Tamalanrea',
+      price: 560000000, beds: 3, baths: 2, building: 60, land: 90, type: 'Rumah', image: 'house-1',
+      developer: 'Mentari Hunian (contoh fiktif)',
+      description: 'Contoh rumah dengan panel surya di atap dan area resapan. Data, foto, harga, dan ciri rumah hanya ilustrasi.',
+      amenities: ['Carport', 'Teras'], features: ['Panel surya', 'Area resapan'],
+      monthlyCosts: { utilities: 575000, management: 125000 }, readiness: 'Dalam pembangunan', documentType: 'SHGB',
+      documents: createDocumentExamples('SHGB', 'Dalam pembangunan'), timeline: createTimelineExamples()
     }
   ];
 
