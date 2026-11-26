@@ -27,6 +27,8 @@
   const favorites = loadSet('matchhome-favorites', byId);
   const comparison = loadSet('matchhome-comparison', byId, 3);
   const completed = loadSet('matchhome-checklist', checklistIds);
+  let demoAccount = '';
+  try { demoAccount = localStorage.getItem('matchhome-demo-name') || ''; } catch { /* Demo remains available for this page. */ }
   const filters = { query: '', budget: 0, bedrooms: 0, type: 'all', readiness: 'all', feature: 'all', fitOnly: false };
   const homeProperties = [...properties].sort((a, b) => a.price - b.price).slice(0, 2);
   const solarExample = properties.find((property) => property.features?.includes('Panel surya'));
@@ -687,6 +689,38 @@
     result.textContent = `Contoh permintaan: ${$('#visit-date').value}, pukul ${$('#visit-time').value}. Belum dikirim dan belum dikonfirmasi.`;
     result.hidden = false;
   });
+  function renderAccount() {
+    const signedIn = Boolean(demoAccount);
+    $('#account-open').textContent = signedIn ? 'Profil demo' : 'Masuk / Daftar';
+    $('#account-title').textContent = signedIn ? 'Profil pengguna demo' : 'Masuk atau daftar';
+    $('#account-entry').hidden = signedIn;
+    $('#account-profile').hidden = !signedIn;
+    $('#account-display').textContent = demoAccount;
+    $('#account-saved-count').textContent = `${favorites.size} hunian tersimpan`;
+    $('#account-checklist-count').textContent = `${completed.size} persiapan ditandai`;
+  }
+  $('#account-open').addEventListener('click', () => { renderAccount(); $('#account-dialog').showModal(); });
+  $$('[data-account-mode]').forEach((button) => button.addEventListener('click', () => {
+    $$('[data-account-mode]').forEach((option) => option.setAttribute('aria-pressed', String(option === button)));
+    $('#account-submit').textContent = button.dataset.accountMode === 'daftar' ? 'Daftar ke demo' : 'Masuk ke demo';
+  }));
+  $('#account-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = $('#account-name').value.trim();
+    if (!name) { $('#account-name').setCustomValidity('Isi nama panggilan.'); $('#account-name').reportValidity(); return; }
+    demoAccount = name;
+    try { localStorage.setItem('matchhome-demo-name', name); $('#account-storage-note').hidden = true; }
+    catch { $('#account-storage-note').hidden = false; }
+    $('#account-form').reset();
+    renderAccount();
+  });
+  $('#account-name').addEventListener('input', () => $('#account-name').setCustomValidity(''));
+  $('#account-logout').addEventListener('click', () => {
+    demoAccount = '';
+    try { localStorage.removeItem('matchhome-demo-name'); } catch { /* No persisted demo name to remove. */ }
+    $('#account-storage-note').hidden = true;
+    renderAccount();
+  });
 
   document.addEventListener('click', (event) => {
     const target = event.target.closest('button');
@@ -741,6 +775,7 @@
   window.addEventListener('hashchange', route);
 
   $('#calc-property').insertAdjacentHTML('beforeend', properties.map((property) => `<option value="${property.id}">${escapeHtml(property.name)} — ${compact(property.price)}</option>`).join(''));
+  renderAccount();
   $('#home-locations').innerHTML = [...new Set(properties.map((property) => property.city))].sort((a, b) => a.localeCompare(b, 'id')).map((city) => `<option value="${escapeHtml(city)}"></option>`).join('');
   renderIncomeMonths();
   syncIncomeMode();

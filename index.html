@@ -7,10 +7,10 @@
   <meta name="description" content="Hitung anggaran pembelian rumah dari penghasilan bersih, biaya hidup, dana awal, dan skenario perubahan bunga.">
   <title>MatchHome — Cari rumah, rencanakan biayanya</title>
   <link rel="preload" href="assets/manrope-regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=2.2.7">
+  <link rel="stylesheet" href="styles.css?v=2.2.8">
   <script src="finance.js" defer></script>
   <script src="data.js?v=2.2.5" defer></script>
-  <script src="app.js?v=2.2.7" defer></script>
+  <script src="app.js?v=2.2.8" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Lewati ke konten</a>
@@ -43,6 +43,7 @@
       <a href="#rencana" data-view="rencana">Rencana <span id="saved-count" class="count">0</span></a>
     </nav>
     <a class="guide-link" href="#panduan" data-view="panduan">Panduan pembeli <span aria-hidden="true">↗</span></a>
+    <button class="account-button" id="account-open" type="button">Masuk / Daftar</button>
   </div>
 </header>
 <main id="main-content" tabindex="-1">
@@ -170,6 +171,7 @@
 <dialog id="property-dialog" aria-labelledby="detail-title"><div class="detail-dialog-toolbar"><span>Detail hunian</span><button type="button" class="dialog-close" aria-label="Tutup detail"><svg><use href="#i-close"/></svg></button></div><div id="detail-content"></div></dialog>
 <dialog id="compare-dialog" class="compare-dialog" aria-labelledby="compare-title"><div class="dialog-heading"><div><p class="eyebrow">PERBANDINGAN</p><h2 id="compare-title">Bandingkan hunian</h2><p class="compare-scroll-hint">↔ Geser tabel untuk melihat hunian lainnya.</p></div><button class="dialog-close" type="button" aria-label="Tutup perbandingan"><svg><use href="#i-close"/></svg></button></div><div id="compare-content"></div></dialog>
 <dialog id="contact-dialog" aria-labelledby="contact-title"><div class="dialog-heading"><h2 id="contact-title">Hubungi kami</h2><button class="dialog-close" type="button" aria-label="Tutup"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="contact-body"><p id="contact-property"></p><p>Ini adalah tampilan demonstrasi. WhatsApp belum terhubung dan permintaan kunjungan tidak dikirim atau disimpan.</p><form id="visit-form"><label for="visit-date">Tanggal kunjungan yang diinginkan</label><input id="visit-date" type="date" required><label for="visit-time">Waktu yang diinginkan</label><input id="visit-time" type="time" required><button class="button primary" type="submit">Lihat contoh permintaan</button></form><p id="visit-result" role="status" hidden></p></div></dialog>
+<dialog id="account-dialog" aria-labelledby="account-title"><div class="dialog-heading"><h2 id="account-title">Masuk atau daftar</h2><button class="dialog-close" type="button" aria-label="Tutup"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="contact-body"><p>Ini demo akun, belum ada login atau pendaftaran sungguhan. Jangan masukkan kata sandi, nomor telepon, atau data sensitif.</p><div id="account-entry"><div class="account-tabs" role="group" aria-label="Pilihan akun"><button type="button" data-account-mode="masuk" aria-pressed="true">Masuk</button><button type="button" data-account-mode="daftar" aria-pressed="false">Daftar</button></div><form id="account-form"><label for="account-name">Nama panggilan untuk demo</label><input id="account-name" name="name" maxlength="40" required autocomplete="off"><button class="button primary" type="submit" id="account-submit">Masuk ke demo</button></form></div><div id="account-profile" hidden><h3>Halo, <span id="account-display"></span>!</h3><p>Ini profil demo di browser ini. Favorit dan checklist tersimpan di browser; data simulasi keuangan tidak disimpan dan tidak tersedia lintas perangkat.</p><p><strong id="account-saved-count"></strong> · <strong id="account-checklist-count"></strong></p><button type="button" class="button secondary" id="account-logout">Keluar dari demo</button></div><p id="account-storage-note" role="status" hidden>Nama hanya berlaku sampai halaman dimuat ulang karena penyimpanan browser tidak tersedia.</p></div></dialog>
 <div id="toast" class="toast" role="status" hidden></div>
 <noscript><p class="noscript">Aktifkan JavaScript untuk menggunakan katalog dan simulasi MatchHome.</p></noscript>
 </body>

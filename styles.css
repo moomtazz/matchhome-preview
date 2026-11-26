@@ -38,6 +38,7 @@ p { line-height:1.75; }
 .count { background:#e9eef0; font-size:13px; line-height:21px; padding:0 6px; min-width:21px; border-radius:5px; text-align:center; }
 .guide-link { margin-left:auto; font-size:13px; display:flex; gap:10px; padding:10px 15px; border:1px solid var(--line); border-radius:8px; }
 .guide-link.active { color:var(--brand); text-decoration:underline; text-underline-offset:6px; }
+.account-button { background:#fff; color:var(--brand); border:1px solid var(--line); border-radius:8px; padding:10px 12px; min-height:44px; white-space:nowrap; }
 .eyebrow { font-size:13px; letter-spacing:1.7px; font-weight:700; color:#6a7b83; margin-bottom:16px; line-height:1.7; display:block; }
 h1 { font-size:clamp(30px,3vw,36px); letter-spacing:-1px; line-height:1.25; margin-bottom:18px; }
 .button { display:inline-flex; align-items:center; justify-content:center; gap:13px; border:1px solid transparent; border-radius:6px; min-height:44px; padding:12px 18px; font-size:13px; font-weight:700; transition:background .15s,border-color .15s; line-height:1.5; }
@@ -286,6 +287,9 @@ legend>span { font-size:13px; color:#91a5af; margin-right:9px; letter-spacing:.5
 .contact-body form { display:grid; gap:10px; max-width:400px; }
 .contact-body input { width:100%; min-height:44px; border:1px solid #a7b5b0; border-radius:5px; padding:8px 10px; }
 .contact-body form .button { margin-top:8px; }
+.account-tabs { display:flex; gap:8px; margin-bottom:18px; }
+.account-tabs button { border:1px solid var(--line); border-radius:6px; padding:9px 18px; background:#fff; }
+.account-tabs button[aria-pressed=true] { background:var(--brand); color:#fff; }
 code { background:#edf2f4; padding:3px 5px; border-radius:3px; font-size:13px; overflow-wrap:anywhere; }
 .release-note { border-left:2px solid #c6d5db; padding-left:15px; }
 .site-footer { border-top:1px solid var(--line); background:#fafbfc; margin-top:15px; }
@@ -448,6 +452,7 @@ body:has(#compare-bar:not([hidden])) .toast { bottom:112px; }
   .filter-chips { flex-wrap:wrap; }
   .container,.header-inner { width:calc(100% - 36px); }
   .header-inner { flex-wrap:wrap; gap:0; padding-top:15px; }
+  .account-button { margin-left:auto; font-size:12px; }
   .brand { font-size:23px; }
   .brand-mark svg { width:28px; height:28px; }
   .site-header nav { width:100%; justify-content:space-between; margin:9px 0 0; gap:8px; flex-wrap:nowrap; }
