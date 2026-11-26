@@ -95,7 +95,7 @@
       ${property.features?.length ? `<p class="monthly-hint">Ciri hunian: ${property.features.map(escapeHtml).join(' · ')}</p>` : ''}
       <p class="monthly-hint">Estimasi cicilan ${evaluation ? 'awal' : ''} <strong>${money(mortgage.initialPayment)}/bln</strong>${evaluation ? `<br>Sesuai skenario anggaran yang diterapkan` : ''}</p>
       ${evaluation ? `<p class="card-fit ${evaluation.assessment.fits ? 'fits' : ''}"><strong>${evaluation.assessment.fits ? 'Masuk asumsi anggaran' : 'Belum masuk asumsi anggaran'}</strong><br>${fitReason(evaluation.assessment)}</p>` : ''}
-      <div class="card-actions"><label class="compare-label"><input type="checkbox" data-compare="${property.id}" ${comparison.has(property.id) ? 'checked' : ''}>Bandingkan</label><button type="button" class="detail-button" data-detail="${property.id}" aria-label="Lihat detail ${escapeHtml(property.name)}">Lihat detail ${icon('arrow')}</button></div></div>
+      <div class="card-actions"><label class="compare-label"><input type="checkbox" data-compare="${property.id}" ${comparison.has(property.id) ? 'checked' : ''}>Bandingkan</label><button type="button" class="detail-button" data-detail="${property.id}" aria-label="Lihat detail ${escapeHtml(property.name)}">Lihat detail ${icon('arrow')}</button></div><button type="button" class="button secondary contact-button" data-contact-demo="${property.id}" aria-label="Hubungi tentang ${escapeHtml(property.name)} melalui WhatsApp">${icon('chat')} WhatsApp</button></div>
     </article>`;
   }
 
@@ -291,6 +291,7 @@
     activeDetail = id;
     detailTab = 'biaya';
     $('#detail-content').innerHTML = `<div class="detail-photo"><img class="detail-image" src="assets/${property.image}.jpg" alt="Ilustrasi ${escapeHtml(property.name)}"></div><div class="detail-body"><div class="detail-top"><div><p class="eyebrow">${escapeHtml(property.type)} · ${escapeHtml(property.readiness)}</p><h2 id="detail-title">${escapeHtml(property.name)}</h2><p class="detail-location">${escapeHtml(property.district)}, ${escapeHtml(property.city)}</p></div><div><p class="detail-price">${money(property.price)}</p><span class="detail-price-caption">Harga properti</span></div></div><div class="detail-specs"><span>${icon('bed')}${property.beds} kamar tidur · ${property.baths} kamar mandi</span><span>${icon('area')}LB ${property.building} m²${property.land ? ` · LT ${property.land} m²` : ''}</span><span>${property.documentType} · belum diperiksa</span></div><p class="detail-description">${escapeHtml(property.description)}<br>Pengembang: ${escapeHtml(property.developer)}</p><dl class="receipt"><div><dt>Jumlah lantai</dt><dd>${escapeHtml(property.details?.floors || 'Belum ada informasi')}</dd></div><div><dt>Daya listrik</dt><dd>${escapeHtml(property.details?.electricity || 'Belum ada informasi')}</dd></div><div><dt>Sumber air</dt><dd>${escapeHtml(property.details?.water || 'Belum ada informasi')}</dd></div><div><dt>Furnitur</dt><dd>${escapeHtml(property.details?.furnishing || 'Belum ada informasi')}</dd></div></dl><div class="amenities">${[...property.amenities, ...(property.features || [])].map((amenity) => `<span>${escapeHtml(amenity)}</span>`).join('')}</div>${property.features?.length ? '<p>Ciri hunian adalah data simulasi, bukan sertifikasi atau jaminan penghematan. Biaya listrik dan air tidak dihitung berdasarkan ciri tersebut.</p>' : ''}<div class="detail-tabs" role="group" aria-label="Informasi properti"><button type="button" class="active" data-detail-tab="biaya" aria-pressed="true">Biaya hunian</button><button type="button" data-detail-tab="lingkungan" aria-pressed="false">Lokasi & lingkungan</button><button type="button" data-detail-tab="dokumen" aria-pressed="false">Status dokumen</button><button type="button" data-detail-tab="riwayat" aria-pressed="false">Riwayat contoh</button></div><div id="detail-tab-panel" class="detail-tab-panel">${detailPanel(property)}</div><div class="detail-actions"><button type="button" class="button primary" data-simulate="${property.id}">Hitung anggaran rumah ini ${icon('arrow')}</button>${favoriteButton(property, true)}<button type="button" class="button secondary" data-toggle-compare="${property.id}" aria-pressed="false">${icon('compare')}Bandingkan</button></div></div>`;
+    $('#detail-content .detail-actions').insertAdjacentHTML('beforeend', `<button type="button" class="button secondary" data-contact-demo="${property.id}">${icon('chat')} WhatsApp / jadwalkan kunjungan</button>`);
     if (!$('#property-dialog').open) $('#property-dialog').showModal();
     $('#property-dialog').scrollTop = 0;
     syncComparison();
@@ -680,11 +681,27 @@
   $('#reset-checklist').addEventListener('click', () => {
     completed.clear(); persist('matchhome-checklist', completed); renderChecklist();
   });
+  $('#visit-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const result = $('#visit-result');
+    result.textContent = `Contoh permintaan: ${$('#visit-date').value}, pukul ${$('#visit-time').value}. Belum dikirim dan belum dikonfirmasi.`;
+    result.hidden = false;
+  });
 
   document.addEventListener('click', (event) => {
     const target = event.target.closest('button');
     if (!target) return;
-    if (target.dataset.detail) showDetail(target.dataset.detail);
+    if (target.dataset.contactDemo) {
+      const property = byId.get(target.dataset.contactDemo);
+      if ($('#property-dialog').open) $('#property-dialog').close();
+      $('#contact-title').textContent = property ? 'Hubungi tentang hunian' : 'Konsultasi WhatsApp';
+      $('#contact-property').textContent = property ? `${property.name} · ${property.city}` : 'Konsultasi dengan tim MatchHome';
+      $('#visit-form').hidden = !property;
+      $('#visit-form').reset();
+      $('#visit-result').hidden = true;
+      $('#contact-dialog').showModal();
+    }
+    else if (target.dataset.detail) showDetail(target.dataset.detail);
     else if (target.dataset.save) toggleFavorite(target.dataset.save);
     else if (target.dataset.simulate) simulateProperty(target.dataset.simulate);
     else if (target.dataset.toggleCompare) toggleComparison(target.dataset.toggleCompare);
